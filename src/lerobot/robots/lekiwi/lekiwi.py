@@ -408,7 +408,7 @@ class LeKiwi(Robot):
         return {**arm_goal_pos, **base_goal_vel}
 
     def stop_base(self):
-        self.bus.sync_write("Goal_Velocity", dict.fromkeys(self.base_motors, 0), num_retry=5)
+        self.bus.sync_write("Goal_Velocity", dict.fromkeys(self.base_motors, 0), num_retry=10)
         logger.info("Base motors stopped")
 
     def disconnect(self):
