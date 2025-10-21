@@ -367,15 +367,21 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
                     display_data=cfg.display_data,
                 )
 
-            if events["rerecord_episode"]:
-                log_say("Re-record episode", cfg.play_sounds)
-                events["rerecord_episode"] = False
-                events["exit_early"] = False
-                dataset.clear_episode_buffer()
-                continue
 
-            dataset.save_episode()
-            recorded_episodes += 1
+            while True:
+                reply = input("Save episode? (y/n):")
+                if reply == "y":
+                    dataset.save_episode()
+                    recorded_episodes += 1
+                    break
+                if reply == "n":
+                    log_say("Re-record episode", cfg.play_sounds)
+                    events["rerecord_episode"] = False
+                    events["exit_early"] = False
+                    dataset.clear_episode_buffer()
+                    break
+                else:
+                    print("Invalid input. Please input y or n.")            
 
     log_say("Stop recording", cfg.play_sounds, blocking=True)
 
