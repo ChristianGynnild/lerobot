@@ -111,8 +111,7 @@ from lerobot.utils.utils import (
     log_say,
 )
 from lerobot.utils.visualization_utils import _init_rerun, log_rerun_data
-import os
-import shutil
+
 
 @dataclass
 class DatasetRecordConfig:
@@ -380,8 +379,6 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
                     events["rerecord_episode"] = False
                     events["exit_early"] = False
                     dataset.clear_episode_buffer()
-                    episode_path = os.path.join(cfg.dataset.root, f"images/observation.images.front/episode_{str(recorded_episodes).zfill(6)}")
-                    shutil.rmtree(episode_path)
                     break
                 else:
                     print("Invalid input. Please input y or n.")            
